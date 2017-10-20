@@ -1,0 +1,29 @@
+{
+  "name": "messages-angular",
+  "version": "0.0.1",
+  "description": "A solution for messages exchanging based on the \"nodejs-server-base\" solution with the angular at frontend.",
+  "main": "./server/startup/index.js",
+  "scripts": {
+    "startDev": "tsc && concurrently \"tsc -w\" \"nf start server-dev\"",
+    "start": "tsc && nf start server"
+  },
+  "keywords": [
+    "nodejs",
+    "server"
+  ],
+  "author": "Sergey Kotyushkin",
+  "license": "MIT",
+  "repository": "https://github.com/SergeyKotyushkin/messages-angular.git",
+  "dependencies": {
+    "app-root-path": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express-session": "^1.15.3",
+    "@types/node": "^8.0.33",
+    "typescript": "^2.5.3"
+  }
+}

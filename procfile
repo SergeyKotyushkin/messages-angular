@@ -1,0 +1,2 @@
+server: node ./out/server/startup/
+server-dev: node --debug ./out/server/startup/
