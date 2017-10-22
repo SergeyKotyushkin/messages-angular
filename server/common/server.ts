@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import expressSession = require('express-session');
+import { IndexRoute } from '../routes/index.route';
 import { ApiRoute } from '../routes/api.route';
 
 export class Server {
@@ -23,6 +24,13 @@ export class Server {
 
     public config() {
         this.app.use('/favicon.ico', express.static('client/favicon.ico'));
+        this.app.use(
+            '*/dist',
+            express.static(
+                path.join(this._rootPath, 'out', 'client', 'dist'),
+                { extensions: ['gz', 'js.gz', 'js'] }
+            )
+        );
 
         this.app.use(cookieParser());
         this.app.use(bodyParser.json());
@@ -41,6 +49,9 @@ export class Server {
 
         //ApiRoute
         ApiRoute.applyRoutes(router);
+
+        //IndexRoute
+        IndexRoute.applyRoutes(router);
 
         //use router middleware
         this.app.use(router);

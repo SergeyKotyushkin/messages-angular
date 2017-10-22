@@ -1,2 +1,6 @@
 server: node ./out/server/startup/
 server-dev: node --debug ./out/server/startup/
+compile: tsc
+compile-and-watch: tsc -w
+bundle: webpack --config ./out/client/webpack.config.js
+clean: rimraf ./out
