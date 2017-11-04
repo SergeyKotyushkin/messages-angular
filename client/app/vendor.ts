@@ -18,3 +18,4 @@ import '@angular/platform-browser/animations';
 import 'angular-in-memory-web-api';
 import 'hammerjs';
 import 'rxjs';
+import 'ngx-logger';

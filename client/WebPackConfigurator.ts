@@ -35,6 +35,7 @@ export class WebPackConfigurator {
         return [
             // { source: './client/static', destination: './out/client/static' },
             { source: './client/index.html', destination: './out/client/index.html' },
+            { source: './client/favicon.ico', destination: './out/client/favicon.ico' },
 
             // Templates
             {
@@ -96,9 +97,7 @@ export class WebPackConfigurator {
             new CompressionPlugin({
                 asset: "[path].gz[query]",
                 algorithm: "gzip",
-                test: /\.js$|\.css$|\.html$/,
-                threshold: 10240,
-                minRatio: 0,
+                test: /\.js$|\.css$/,
                 deleteOriginalAssets: true
             })
         ];
