@@ -1,0 +1,21 @@
+// Angular
+import '@angular/animations';
+import '@angular/animations/browser';
+import '@angular/cdk';
+import '@angular/core';
+import '@angular/common';
+import '@angular/compiler';
+import '@angular/forms';
+import '@angular/flex-layout';
+import '@angular/http';
+import '@angular/material';
+import '@angular/router';
+import '@angular/platform-browser';
+import '@angular/platform-browser-dynamic';
+import '@angular/platform-browser/animations';
+
+// Other
+import 'angular-in-memory-web-api';
+import 'hammerjs';
+import 'rxjs';
+import 'ngx-logger';
