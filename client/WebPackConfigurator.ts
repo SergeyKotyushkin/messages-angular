@@ -31,25 +31,15 @@ export class WebPackConfigurator {
         };
     }
 
-    private static _createFilesForCopy() {
-        return [
-            // { source: './client/static', destination: './out/client/static' },
-            { source: './client/index.html', destination: './out/client/index.html' },
-            { source: './client/favicon.ico', destination: './out/client/favicon.ico' },
-
-            // Templates
-            {
-                source: './client/app/components/main-app/main-app.template.html',
-                destination: './out/client/app/components/main-app/main-app.template.html'
-            }
-        ];
-    }
-
     private static _getPlugins() {
         let plugins = [
             new FileManagerPlugin({
                 onStart: {
-                    copy: this._createFilesForCopy()
+                    copy: [
+                        // { source: './client/static', destination: './out/client/static' },
+                        { source: './client/index.html', destination: './out/client/index.html' },
+                        { source: './client/favicon.ico', destination: './out/client/favicon.ico' }
+                    ]
                 }
             }),
 

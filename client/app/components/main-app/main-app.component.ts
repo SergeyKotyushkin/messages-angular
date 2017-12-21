@@ -2,9 +2,14 @@ import { Component } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 
 @Component({
-    // moduleId: module.id,
     selector: 'main-app',
-    template: require("./main-app.template.html"),
+    template: `<div>
+        <em>Hello</em>
+        <span>messages</span>
+        <em>!</em>
+    </div>
+    <router-outlet></router-outlet>
+    <hr/>`,
     providers: [NGXLogger]
 })
 export class MainAppComponent {

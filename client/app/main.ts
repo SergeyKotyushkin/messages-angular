@@ -10,5 +10,3 @@ if (Environment.mode === 'production') {
 
 const platform = platformBrowserDynamic();
 platform.bootstrapModule(MainAppModule);
-
-console.log("Hello");
