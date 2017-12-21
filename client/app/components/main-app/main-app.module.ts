@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { currentUserReducer } from '../../redux/current-user/reducer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +19,7 @@ import 'hammerjs';
 @NgModule({
     imports: [
         BrowserModule,
+        StoreModule.provideStore({ currentUser: currentUserReducer }),
         BrowserAnimationsModule,
         FormsModule,
         HttpModule,
