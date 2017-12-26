@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { LocalLoginModule } from '../local-login/local-login.module';
 import { LoginPageComponent } from './login-page.component';
+import { LocalLoginComponent } from '../local-login/local-login.component';
 
 @NgModule({
     imports: [
-        FormsModule,
-        FlexLayoutModule
+        LocalLoginModule
     ],
     declarations: [LoginPageComponent],
     exports: [LoginPageComponent]

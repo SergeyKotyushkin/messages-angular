@@ -3,6 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import { currentUserReducer } from '../../redux/current-user/reducer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomMaterialModule } from '../../modules/custom-material';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpModule } from '@angular/http';
@@ -21,6 +22,7 @@ import 'hammerjs';
         BrowserModule,
         StoreModule.provideStore({ currentUser: currentUserReducer }),
         BrowserAnimationsModule,
+        CustomMaterialModule,
         FormsModule,
         HttpModule,
         FlexLayoutModule,

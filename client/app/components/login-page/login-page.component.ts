@@ -4,7 +4,7 @@ import { NGXLogger } from 'ngx-logger';
 @Component({
     selector: 'login-page',
     template: `<div class="login-page-container">
-        <em>Login page here</em>
+        <local-login></local-login>
     </div>`,
     providers: [NGXLogger]
 })
