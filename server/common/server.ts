@@ -51,7 +51,8 @@ export class Server {
                 '@angular',
                 'material',
                 'prebuilt-themes',
-                'indigo-pink.css')));
+                'indigo-pink.css'))
+        );
 
         this.app.use(cookieParser());
         this.app.use(bodyParser.json());

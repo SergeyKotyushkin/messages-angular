@@ -38,6 +38,7 @@ export class WebPackConfigurator {
                     copy: [
                         // { source: './client/static', destination: './out/client/static' },
                         { source: './client/index.html', destination: './out/client/index.html' },
+                        { source: './client/app/style.css', destination: './out/client/dist/style.css' },
                         { source: './client/favicon.ico', destination: './out/client/favicon.ico' }
                     ]
                 }

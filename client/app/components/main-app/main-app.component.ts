@@ -9,7 +9,8 @@ import { AuthService } from '../../services/auth';
 
 @Component({
     selector: 'main-app',
-    template: `<mat-toolbar layout="row" color="primary">
+    template: `
+<mat-toolbar layout="row" color="primary">
     <a mat-button routerLink="">
         <mat-icon>home</mat-icon>
         <span>Home</span>
@@ -19,22 +20,44 @@ import { AuthService } from '../../services/auth';
         <span>Admin</span>
     </a>
     <span class="flex-filler"></span>
-    <a mat-button routerLink="/login" *ngIf="!currentUserIsLoggedIn">
-        <i class="material-icons">exit_to_app</i>
+    <a mat-button routerLink="/login" *ngIf="true || !currentUserIsLoggedIn">
+        <mat-icon>exit_to_app</mat-icon>
         <span>Login</span>
     </a>
-    <a mat-button (click)="logout()" *ngIf="currentUserIsLoggedIn">
-        <i class="material-icons">account_circle</i>
+    <button mat-button [matMenuTriggerFor]="logoutMenu" *ngIf="true || currentUserIsLoggedIn">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{currentUserName}}: WHO IS THERE?</span>
+    </button>
+    <mat-menu #logoutMenu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Info</span>
+        </button>
+        <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Log out</span>
+        </button>
+    </mat-menu>
+    <!--<a mat-button (click)="logout()" *ngIf="true || currentUserIsLoggedIn">
+        <mat-icon>account_circle</mat-icon>
         <span>{{currentUserName + ': LogOut'}}</span>
-    </a>
+    </a>-->
 </mat-toolbar>
-<div><div>
-    <em>Hello</em>
-    <span>messages</span>
-    <em>!</em>
+<hr/>
+<mat-toolbar color="primary">
+<span>App Name</span>
+<span class="flex-filler"></span>
+<button mat-icon-button [matMenuTriggerFor]="appMenu"><mat-icon>menu</mat-icon> Menu</button>
+</mat-toolbar>
+<mat-menu #appMenu="matMenu">
+<button mat-menu-item> Settings </button>
+<button mat-menu-item> Contact </button>
+</mat-menu>
+<div class="main-content">
+    <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>
-<hr/>`,
+<hr/>
+`,
     providers: [NGXLogger, AuthService]
 })
 export class MainAppComponent implements OnDestroy {

@@ -12,10 +12,10 @@ import { AuthService } from '../../services/auth';
     template: `<div fxFlex fxLayoutAlign="center center">
     <mat-card fxLayout="column" fxLayoutGap="10px" fxFlex.sm="50%" fxFlex.xs="90%" fxFlex="30%">
         <h3>Login</h3>
-        <mat-form-field>
+        <mat-form-field class="full-width">
             <input matInput placeholder="Username" [(ngModel)]="name"/>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="full-width">
             <input matInput placeholder="Password" type="password" [(ngModel)]="password">
         </mat-form-field>
         <mat-card-actions fxLayout="row" fxLayoutAlign="center center">

@@ -5,18 +5,22 @@ import {
     MatButtonModule,
     MatSelectModule,
     MatGridListModule,
-    MatIconRegistry
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-    providers: [MatIconRegistry],
     exports: [
         MatInputModule,
         MatCardModule,
         MatButtonModule,
         MatSelectModule,
         MatGridListModule,
+        MatToolbarModule,
+        MatMenuModule,
+        MatIconModule,
         FlexLayoutModule
     ]
 })

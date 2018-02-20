@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+}
+
+.main-content {
+    margin-top: 10px;
+}
+
+.flex-filler {
+    flex: 1 1 auto;
+}
+
+.full-width {
+    width: 100%;
+}
