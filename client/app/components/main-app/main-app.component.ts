@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 import { Observable } from 'rxjs/Rx';
 import { NGXLogger } from 'ngx-logger';
@@ -16,43 +17,28 @@ import { AuthService } from '../../services/auth';
         <span>Home</span>
     </a>
     <a mat-button routerLink="/admin" *ngIf="currentUserIsLoggedIn">
-        <mat-icon>people</mat-icon>
+        <mat-icon>security</mat-icon>
         <span>Admin</span>
     </a>
     <span class="flex-filler"></span>
-    <a mat-button routerLink="/login" *ngIf="true || !currentUserIsLoggedIn">
+    <a mat-button routerLink="/login" *ngIf="!currentUserIsLoggedIn">
         <mat-icon>exit_to_app</mat-icon>
         <span>Login</span>
     </a>
-    <button mat-button [matMenuTriggerFor]="logoutMenu" *ngIf="true || currentUserIsLoggedIn">
-        <mat-icon>account_circle</mat-icon>
-        <span>{{currentUserName}}: WHO IS THERE?</span>
+    <button mat-button [matMenuTriggerFor]="logoutMenu" *ngIf="currentUserIsLoggedIn">
+        <span>{{currentUserName}}</span>
     </button>
     <mat-menu #logoutMenu="matMenu">
         <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Info</span>
+            <mat-icon>account_circle</mat-icon>
+            <span>Profile</span>
         </button>
-        <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>power_settings_new</mat-icon>
             <span>Log out</span>
         </button>
     </mat-menu>
-    <!--<a mat-button (click)="logout()" *ngIf="true || currentUserIsLoggedIn">
-        <mat-icon>account_circle</mat-icon>
-        <span>{{currentUserName + ': LogOut'}}</span>
-    </a>-->
 </mat-toolbar>
-<hr/>
-<mat-toolbar color="primary">
-<span>App Name</span>
-<span class="flex-filler"></span>
-<button mat-icon-button [matMenuTriggerFor]="appMenu"><mat-icon>menu</mat-icon> Menu</button>
-</mat-toolbar>
-<mat-menu #appMenu="matMenu">
-<button mat-menu-item> Settings </button>
-<button mat-menu-item> Contact </button>
-</mat-menu>
 <div class="main-content">
     <router-outlet></router-outlet>
 </div>
@@ -71,6 +57,7 @@ export class MainAppComponent implements OnDestroy {
     public currentUserName: String;
 
     constructor(private _logger: NGXLogger,
+        private _router: Router,
         private _authService: AuthService,
         private _currentUserStore: Store<CurrentUserModel>) {
         this._currentUser = this._currentUserStore.select('currentUser');
@@ -110,6 +97,7 @@ export class MainAppComponent implements OnDestroy {
         if (result) {
             this._currentUserStore.dispatch({ type: SET_CURRENT_USER });
             this._logger.debug('Logout success');
+            this._router.navigateByUrl('/');
         } else {
             this._logger.error('Logout error');
         }
