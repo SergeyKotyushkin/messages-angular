@@ -1,8 +1,7 @@
 import * as express from 'express';
 import * as path from 'path';
-import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
-import cookieSession = require('cookie-session');
+import expressSession = require('express-session');
 import { IndexRoute } from '../routes/index';
 import { ApiRoute } from '../routes/api';
 import { AuthRoute } from '../routes/auth';
@@ -54,10 +53,9 @@ export class Server {
                 'indigo-pink.css'))
         );
 
-        this.app.use(cookieParser());
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
-        this.app.use(cookieSession({ name: 'session', keys: ["beware"] }));
+        this.app.use(expressSession({ resave: true, saveUninitialized: true, secret: 'broke' }));
 
         //catch 404 and forward to error handler
         this.app.use(function(err: any,

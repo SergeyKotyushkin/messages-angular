@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 import { Observable } from 'rxjs/Rx';
@@ -6,6 +6,7 @@ import { NGXLogger } from 'ngx-logger';
 import { Store } from '@ngrx/store';
 import { SET_CURRENT_USER } from '../../redux/current-user/actions';
 import { CurrentUserModel } from '../../../../common/models/current-user';
+import { AuthResponse } from '../../../../common/models/auth-response';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -49,6 +50,7 @@ import { AuthService } from '../../services/auth';
 export class MainAppComponent implements OnDestroy {
     private _currentUserSubscription: ISubscription;
     private _logoutSubscription: ISubscription;
+    private _getCurrentUserSubscription: ISubscription;
 
     private _currentUser: Observable<CurrentUserModel>;
 
@@ -60,9 +62,7 @@ export class MainAppComponent implements OnDestroy {
         private _router: Router,
         private _authService: AuthService,
         private _currentUserStore: Store<CurrentUserModel>) {
-        this._currentUser = this._currentUserStore.select('currentUser');
-        this._currentUserSubscription = this._currentUser
-            .subscribe(this._onCurrentUserUpdation.bind(this));
+
         this._logger.debug('MainAppComponent is ready!', new Date());
     }
 
@@ -77,13 +77,42 @@ export class MainAppComponent implements OnDestroy {
             this._onLogoutFail.bind(this));
     }
 
+    public ngOnInit() {
+        this._currentUser = this._currentUserStore.select('currentUser');
+        this._currentUserSubscription = this._currentUser
+            .subscribe(this._onCurrentUserUpdation.bind(this));
+
+        if (this._getCurrentUserSubscription) {
+            this._getCurrentUserSubscription.unsubscribe();
+        }
+
+        this._getCurrentUserSubscription = this._authService
+            .getCurrentUser()
+            .subscribe(this._onGetCurrentUserSuccess.bind(this),
+            this._onGetCurrentUserFail.bind(this));
+    }
+
     public ngOnDestroy() {
+        if (this._getCurrentUserSubscription) {
+            this._getCurrentUserSubscription.unsubscribe();
+        }
+
         if (this._currentUserSubscription) {
             this._currentUserSubscription.unsubscribe();
         }
+
         if (this._logoutSubscription) {
             this._logoutSubscription.unsubscribe();
         }
+    }
+
+    private _onGetCurrentUserSuccess(authResponse: AuthResponse) {
+        this._logger.debug('CurrentUser Has Got with success: ', authResponse);
+        this._currentUserStore.dispatch({ type: SET_CURRENT_USER, payload: authResponse.user });
+    }
+
+    private _onGetCurrentUserFail(errorMessage: String) {
+        this._logger.error('CurrentUser Has Got with error: ', errorMessage);
     }
 
     private _onCurrentUserUpdation(user: CurrentUserModel) {

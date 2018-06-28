@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { currentUserReducer } from '../../redux/current-user/reducer';
+import { loginPageStateReducer } from '../../redux/login-page/reducer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from '../../modules/custom-material';
@@ -20,7 +21,10 @@ import 'hammerjs';
 @NgModule({
     imports: [
         BrowserModule,
-        StoreModule.provideStore({ currentUser: currentUserReducer }),
+        StoreModule.provideStore({
+            currentUser: currentUserReducer,
+            loginPageState: loginPageStateReducer
+        }),
         BrowserAnimationsModule,
         CustomMaterialModule,
         FormsModule,

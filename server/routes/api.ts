@@ -22,6 +22,7 @@ export class ApiRoute {
     }
 
     private static _info(req: Request, res: Response, next: NextFunction) {
+        debug('server')('req.user: ', req.user);
         let info = {
             appName: 'messages',
             version: '0.0.1'

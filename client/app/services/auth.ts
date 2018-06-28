@@ -31,4 +31,12 @@ export class AuthService {
             .map(HttpHelper.extractObjectData)
             .catch(HttpHelper.handleError);
     }
+
+    public getCurrentUser(): Observable<UserModel> {
+        return this._http
+            .get(PassportUrls.LocalGetCurrentUser)
+            .map(HttpHelper.extractObjectData)
+            .catch(HttpHelper.handleError)
+            .take(1);
+    }
 }

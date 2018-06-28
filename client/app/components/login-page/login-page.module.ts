@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 import { LocalLoginModule } from '../local-login/local-login.module';
+import { LocalRegistrationModule } from '../local-registration/local-registration.module';
 import { LoginPageComponent } from './login-page.component';
-import { LocalLoginComponent } from '../local-login/local-login.component';
+
 
 @NgModule({
     imports: [
-        LocalLoginModule
+        CommonModule,
+        BrowserModule,
+        LocalLoginModule,
+        LocalRegistrationModule
     ],
     declarations: [LoginPageComponent],
     exports: [LoginPageComponent]

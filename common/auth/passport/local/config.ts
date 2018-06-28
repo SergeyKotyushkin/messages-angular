@@ -4,6 +4,7 @@ import local = require('passport-local');
 import * as passportLocal from 'passport-local';
 import { UserModel } from '../../../models/user';
 import { CurrentUserModel } from '../../../models/current-user';
+import { AuthResponse } from '../../../models/auth-response';
 import { MockUsers } from '../../../mocks/users';
 import { PassportUrls } from '../common';
 import { IAuthStrategy } from '../../common/i-auth-strategy';
@@ -24,11 +25,13 @@ export class LocalPassport implements IAuthStrategy {
         );
 
         passport.serializeUser((user: CurrentUserModel, done) => {
-            done(null, user);
+            debug('server')('serialize: ', user);
+            done(null, user.id);
         });
 
-        passport.deserializeUser((id: string, done) => {
-            if (id == null) {
+        passport.deserializeUser((id: String, done) => {
+            debug('server')('deserialize: ', id);
+            if (!id) {
                 done(null, null);
                 return;
             }
@@ -46,15 +49,26 @@ export class LocalPassport implements IAuthStrategy {
             req.logout();
             res.json(true);
         });
+
+        app.get(PassportUrls.LocalGetCurrentUser, (req: Request, res: Response) => {
+            debug('server')('getCurrentUser: ', req.user);
+            let user: CurrentUserModel = null;
+            let isValid = !!req.user;
+            if (isValid) {
+                user = new CurrentUserModel(req.user.id, req.user.name);
+            }
+
+            res.json(new AuthResponse(isValid, user));
+        });
     }
 
-    private _findUser(name: string, password: string): CurrentUserModel {
+    private _findUser(name: String, password: String): CurrentUserModel {
         let user = MockUsers.find((user: UserModel) => user.name === name &&
             user.password === password);
         return user ? new CurrentUserModel(user.id, user.name) : null;
     }
 
-    private _findUserById(id: string): CurrentUserModel {
+    private _findUserById(id: String): CurrentUserModel {
         let user = MockUsers.find((user: UserModel) => user.id === id);
         return user ? new CurrentUserModel(user.id, user.name) : null;
     }
